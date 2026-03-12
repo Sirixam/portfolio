@@ -81,9 +81,7 @@
       align-items: start;
       position: relative;
     }
-    .hero-left {
-      display: flex; flex-direction: column; gap: 32px;
-    }
+    .hero-left { display: flex; flex-direction: column; gap: 32px; }
     .hero-label {
       font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--accent);
@@ -204,7 +202,7 @@
     .p4 { background: #101c10; }
     .project-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 40%, transparent 70%);
+      background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.6) 45%, transparent 72%);
       display: flex; align-items: flex-end; padding: 28px 32px;
     }
     .project-info { color: var(--ink); width: 100%; }
@@ -215,9 +213,31 @@
     }
     .project-title {
       font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300;
-      color: #ffffff; line-height: 1.2;
+      color: #ffffff; line-height: 1.2; margin-bottom: 6px;
       text-shadow: 0 1px 6px rgba(0,0,0,0.9);
     }
+    .project-genre {
+      display: block; font-size: 12px; color: var(--muted);
+      letter-spacing: 0.04em; margin-bottom: 14px;
+    }
+    .project-video-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+    /* play triangle icon via CSS */
+    .project-video-link::before {
+      content: '';
+      display: inline-block;
+      width: 0; height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid var(--accent);
+      flex-shrink: 0;
+    }
+    .project-video-link:hover { gap: 12px; color: #fff; }
+    .project-video-link:hover::before { border-left-color: #fff; }
 
     /* ── SERVICES ── */
     #services { background: var(--card); }
@@ -256,20 +276,6 @@
       font-weight: 300; line-height: 1.1; margin-bottom: 36px;
     }
     .contact-heading em { font-style: italic; color: var(--accent); }
-    .contact-photo-frame {
-      width: 180px; aspect-ratio: 3/4;
-      border: 1px solid var(--rule); overflow: hidden;
-    }
-    .contact-photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .contact-photo-placeholder {
-      width: 100%; height: 100%; background: var(--bg);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-    }
-    .contact-photo-placeholder::before {
-      content: ''; width: 32px; height: 32px; background: var(--rule);
-      clip-path: polygon(0 25%, 25% 0, 75% 0, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0 75%);
-    }
-    .contact-photo-label { font-size: 10px; color: var(--accent); letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }
     .contact-links { display: flex; flex-direction: column; }
     .contact-link {
       display: flex; align-items: center; justify-content: space-between;
@@ -278,6 +284,12 @@
     }
     .contact-link:first-child { border-top: 1px solid var(--rule); }
     .contact-link:hover { color: var(--accent); }
+    .contact-link-left { display: flex; align-items: center; gap: 20px; }
+    .contact-icon {
+      width: 22px; height: 22px; flex-shrink: 0;
+      color: var(--muted); transition: color 0.2s;
+    }
+    .contact-link:hover .contact-icon { color: var(--accent); }
     .contact-link-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); opacity: 0.6; margin-bottom: 4px; }
     .contact-link-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; }
     .contact-link-arrow { font-size: 18px; color: var(--muted); transition: transform 0.2s, color 0.2s; }
@@ -316,7 +328,7 @@
       section { padding-left: 28px; padding-right: 28px; }
       .srule { margin: 0 28px; }
       .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-      .work-grid { grid-template-columns: 1fr; margin: 0 -28px; }
+      .work-grid { grid-template-columns: 1fr; }
       .services-list { grid-template-columns: 1fr 1fr; }
       .service-item:nth-child(2n) { border-right: none; }
       .service-item:nth-child(1), .service-item:nth-child(2) { border-bottom: 1px solid var(--rule); }
@@ -394,59 +406,68 @@
 
   <!-- Work -->
   <section id="work">
-  <p class="section-label reveal">Work</p>
-  <div class="work-grid">
+    <p class="section-label reveal">Work</p>
+    <div class="work-grid">
 
-    <div class="project-card reveal">
-      <div class="project-media">
-        <img src="dcLegends.gif" alt="DC Legends" class="project-gif"/>
-      </div>
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-tag">Mobile Game - Unity &#183; 2024</p>
-          <h3 class="project-title">DC Legends</h3>
+      <div class="project-card reveal">
+        <div class="project-media">
+          <img src="dcLegends.gif" alt="DC Legends" class="project-gif"/>
+        </div>
+        <div class="project-overlay">
+          <div class="project-info">
+            <p class="project-tag">Mobile Game &#183; Unity &#183; 2024</p>
+            <h3 class="project-title">DC Legends</h3>
+            <span class="project-genre">Turn-based RPG / Hero Collector</span>
+            <!-- Replace # with your video URL -->
+            <a href="#" class="project-video-link" target="_blank" rel="noopener">Watch gameplay</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal d1">
-      <div class="project-media">
-        <div class="project-placeholder p2">[ Coming soon ]</div>
-      </div>
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-tag">UI/UX Design &#183; 2024</p>
-          <h3 class="project-title">Project Title Two</h3>
+      <div class="project-card reveal d1">
+        <div class="project-media">
+          <div class="project-placeholder p2">[ Coming soon ]</div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-info">
+            <p class="project-tag">Platform &#183; Engine &#183; Year</p>
+            <h3 class="project-title">Project Title Two</h3>
+            <span class="project-genre">Genre / Style</span>
+            <a href="#" class="project-video-link" target="_blank" rel="noopener">Watch gameplay</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal d2">
-      <div class="project-media">
-        <div class="project-placeholder p3">[ Coming soon ]</div>
-      </div>
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-tag">Art Direction &#183; 2023</p>
-          <h3 class="project-title">Project Title Three</h3>
+      <div class="project-card reveal d2">
+        <div class="project-media">
+          <div class="project-placeholder p3">[ Coming soon ]</div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-info">
+            <p class="project-tag">Platform &#183; Engine &#183; Year</p>
+            <h3 class="project-title">Project Title Three</h3>
+            <span class="project-genre">Genre / Style</span>
+            <a href="#" class="project-video-link" target="_blank" rel="noopener">Watch gameplay</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="project-card reveal d3">
-      <div class="project-media">
-        <div class="project-placeholder p4">[ Coming soon ]</div>
-      </div>
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-tag">Web Design &#183; 2023</p>
-          <h3 class="project-title">Project Title Four</h3>
+      <div class="project-card reveal d3">
+        <div class="project-media">
+          <div class="project-placeholder p4">[ Coming soon ]</div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-info">
+            <p class="project-tag">Platform &#183; Engine &#183; Year</p>
+            <h3 class="project-title">Project Title Four</h3>
+            <span class="project-genre">Genre / Style</span>
+            <a href="#" class="project-video-link" target="_blank" rel="noopener">Watch gameplay</a>
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
-</section>
+    </div>
+  </section>
 
   <hr class="srule"/>
 
@@ -486,30 +507,42 @@
       </div>
       <div class="contact-links reveal d1">
         <a href="#" class="contact-link" id="email-link">
-          <div>
-            <div class="contact-link-label">Email</div>
-            <div class="contact-link-value">hello&#64;yourname&#46;com</div>
+          <div class="contact-link-left">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">hello&#64;yourname&#46;com</div>
+            </div>
           </div>
           <span class="contact-link-arrow">&#8599;</span>
         </a>
         <a href="#" class="contact-link">
-          <div>
-            <div class="contact-link-label">LinkedIn</div>
-            <div class="contact-link-value">linkedin.com/in/yourname</div>
+          <div class="contact-link-left">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/in/yourname</div>
+            </div>
           </div>
           <span class="contact-link-arrow">&#8599;</span>
         </a>
         <a href="#" class="contact-link">
-          <div>
-            <div class="contact-link-label">Instagram</div>
-            <div class="contact-link-value">&#64;yourhandle</div>
+          <div class="contact-link-left">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            <div>
+              <div class="contact-link-label">Instagram</div>
+              <div class="contact-link-value">&#64;yourhandle</div>
+            </div>
           </div>
           <span class="contact-link-arrow">&#8599;</span>
         </a>
         <a href="#" class="contact-link">
-          <div>
-            <div class="contact-link-label">Resume</div>
-            <div class="contact-link-value">Download PDF</div>
+          <div class="contact-link-left">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+            <div>
+              <div class="contact-link-label">Resume</div>
+              <div class="contact-link-value">Download PDF</div>
+            </div>
           </div>
           <span class="contact-link-arrow">&#8599;</span>
         </a>
@@ -518,12 +551,11 @@
   </section>
 
   <footer>
-    <span>&#169; 2026 Your Name. All rights reserved.</span>
+    <span>&#169; 2026 Maximiano Silva Astudillo. All rights reserved.</span>
     <span>Designed with intention.</span>
   </footer>
 
   <script>
-    // Set email href via JS so Cloudflare cannot intercept it
     (function() {
       var u = 'hello';
       var d = 'yourname.com';
@@ -531,14 +563,12 @@
       if (link) link.href = 'mailto:' + u + '@' + d;
     })();
 
-    // ── CURSOR ──
     var cursor = document.getElementById('cursor');
     var ring   = document.getElementById('cursor-ring');
     var mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', function(e) {
-      mx = e.clientX;
-      my = e.clientY;
+      mx = e.clientX; my = e.clientY;
     });
 
     (function loop() {
@@ -564,7 +594,6 @@
       });
     });
 
-    // ── SCROLL REVEAL ──
     var revealEls = document.querySelectorAll('.reveal');
     var observer  = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
